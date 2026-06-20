@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stratum — Premium Digital Products, Instantly Delivered</title>
+<meta name="description" content="Buy and sell premium templates, courses, software and design assets. Instant delivery, secure checkout, trusted by creators worldwide.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+/* ============ RESET ============ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;}
+}
+img,svg{display:block;max-width:100%;}
+button,input{font:inherit;color:inherit;}
+a{color:inherit;text-decoration:none;}
+ul{list-style:none;}
+
+/* ============ TOKENS ============ */
+:root{
+  --bg:#0a0b0f;
+  --bg-soft:#0d0e15;
+  --surface:#14151d;
+  --surface-2:#1a1c27;
+  --border:#24262f;
+  --border-soft:#1c1e27;
+  --text-1:#f5f6fa;
+  --text-2:#9da1b3;
+  --text-3:#686c7a;
+
+  --indigo:#6366f1;
+  --azure:#3ab7f0;
+  --teal:#2bd9b9;
+  --amber:#f5a93c;
+  --amber-light:#ffcf75;
+
+  --grad-strata:linear-gradient(115deg,var(--indigo) 0%,var(--azure) 52%,var(--teal) 100%);
+  --grad-amber:linear-gradient(120deg,var(--amber) 0%,var(--amber-light) 100%);
+
+  --radius-s:10px;
+  --radius-m:16px;
+  --radius-l:26px;
+  --ease:cubic-bezier(.16,.84,.44,1);
+  --shadow-card:0 24px 60px -24px rgba(0,0,0,.65);
+
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'Inter',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text-1);
+  font-family:var(--font-body);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+::selection{background:var(--teal);color:#06110f;}
+
+/* focus visibility */
+a:focus-visible,button:focus-visible,input:focus-visible{
+  outline:2px solid var(--teal);
+  outline-offset:3px;
+  border-radius:4px;
+}
+
+/* ============ LAYOUT HELPERS ============ */
+.wrap{
+  max-width:1240px;
+  margin:0 auto;
+  padding:0 32px;
+}
+section{position:relative;}
+.eyebrow{
+  font-family:var(--font-mono);
+  font-size:12px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--teal);
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:18px;
+}
+.eyebrow::before{
+  content:'';
+  width:6px;height:6px;border-radius:50%;
+  background:var(--grad-strata);
+  box-shadow:0 0 12px var(--teal);
+}
+h1,h2,h3{font-family:var(--font-display);font-weight:600;letter-spacing:-.01em;}
+.section-head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:24px;
+  margin-bottom:48px;
+  flex-wrap:wrap;
+}
+.section-head h2{
+  font-size:clamp(28px,3.4vw,40px);
+  line-height:1.15;
+}
+.section-head p{
+  color:var(--text-2);
+  max-width:440px;
+  font-size:15.5px;
+}
+.gradient-text{
+  background:var(--grad-strata);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+
+/* ============ BUTTONS ============ */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:13px 24px;
+  border-radius:999px;
+  font-weight:600;
+  font-size:14.5px;
+  border:1px solid transparent;
+  cursor:pointer;
+  transition:transform .35s var(--ease),box-shadow .35s var(--ease),background .35s var(--ease),border-color .35s var(--ease);
+  white-space:nowrap;
+}
+.btn-primary{
+  background:var(--grad-amber);
+  color:#1a1206;
+  box-shadow:0 14px 30px -12px rgba(245,169,60,.45);
+}
+.btn-primary:hover{
+  transform:translateY(-2px);
+  box-shadow:0 20px 40px -14px rgba(245,169,60,.6);
+}
+.btn-ghost{
+  background:rgba(255,255,255,.02);
+  border-color:var(--border);
+  color:var(--text-1);
+}
+.btn-ghost:hover{
+  background:var(--surface-2);
+  border-color:#3a3d4a;
+  transform:translateY(-2px);
+}
+.btn-sm{padding:9px 18px;font-size:13px;}
+.btn svg{width:16px;height:16px;}
+
+/* ============ NOISE + SCROLL PROGRESS ============ */
+.noise{
+  position:fixed;inset:0;
+  pointer-events:none;
+  z-index:9999;
+  opacity:.035;
+  mix-blend-mode:overlay;
+}
+.progress-bar{
+  position:fixed;top:0;left:0;
+  height:2px;
+  width:0%;
+  background:var(--grad-strata);
+  z-index:10000;
+  transition:width .1s linear;
+}
+
+/* ============ NAV ============ */
+header{
+  position:fixed;top:0;left:0;right:0;
+  z-index:1000;
+  padding:18px 0;
+  transition:background .4s var(--ease),border-color .4s var(--ease),padding .4s var(--ease);
+  border-bottom:1px solid transparent;
+}
+header.scrolled{
+  background:rgba(10,11,15,.78);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border-soft);
+  padding:14px 0;
+}
+nav{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.logo{
+  display:flex;align-items:center;gap:9px;
+  font-family:var(--font-display);
+  font-weight:700;
+  font-size:19px;
+  letter-spacing:-.01em;
+}
+.logo .dot{
+  width:9px;height:9px;border-radius:3px;
+  background:var(--grad-strata);
+  transform:rotate(45deg);
+  box-shadow:0 0 16px rgba(58,183,240,.6);
+}
+.nav-links{
+  display:flex;align-items:center;gap:38px;
+}
+.nav-links a{
+  font-size:14.5px;
+  color:var(--text-2);
+  position:relative;
+  transition:color .3s;
+}
+.nav-links a::after{
+  content:'';
+  position:absolute;left:0;bottom:-6px;
+  width:0;height:1px;
+  background:var(--grad-strata);
+  transition:width .3s var(--ease);
+}
+.nav-links a:hover{color:var(--text-1);}
+.nav-links a:hover::after{width:100%;}
+.nav-right{display:flex;align-items:center;gap:14px;}
+.nav-cta-group{display:flex;align-items:center;gap:14px;}
+.hamburger{
+  display:none;
+  width:38px;height:38px;
+  border-radius:9px;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.02);
+  align-items:center;justify-content:center;
+  cursor:pointer;
+}
+.hamburger svg{width:18px;height:18px;}
+
+.mobile-panel{
+  position:fixed;inset:0;
+  background:rgba(8,9,13,.97);
+  backdrop-filter:blur(10px);
+  z-index:1100;
+  display:flex;flex-direction:column;
+  padding:24px 28px;
+  transform:translateX(100%);
+  transition:transform .45s var(--ease);
+}
+.mobile-panel.open{transform:translateX(0);}
+.mobile-panel-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:48px;}
+.mobile-panel a{
+  font-family:var(--font-display);
+  font-size:26px;
+  font-weight:600;
+  padding:16px 0;
+  border-bottom:1px solid var(--border-soft);
+  color:var(--text-1);
+}
+.mobile-panel .btn{margin-top:30px;width:100%;}
+
+/* ============ HERO ============ */
+.hero{
+  padding:172px 0 120px;
+  overflow:hidden;
+}
+.hero-bg-glow{
+  position:absolute;
+  top:-200px;left:50%;
+  width:1100px;height:700px;
+  transform:translateX(-50%);
+  background:radial-gradient(ellipse at center, rgba(99,102,241,.20) 0%, rgba(58,183,240,.12) 35%, transparent 70%);
+  filter:blur(40px);
+  pointer-events:none;
+  z-index:0;
+}
+.hero-grid{
+  position:relative;
+  z-index:1;
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:40px;
+  align-items:center;
+}
+.hero-copy h1{
+  font-size:clamp(38px,5vw,62px);
+  line-height:1.06;
+  letter-spacing:-.02em;
+}
+.hero-copy p.lead{
+  margin-top:24px;
+  font-size:17.5px;
+  color:var(--text-2);
+  max-width:480px;
+  line-height:1.65;
+}
+.hero-actions{
+  display:flex;gap:16px;
+  margin-top:36px;
+  flex-wrap:wrap;
+}
+.hero-stats{
+  display:flex;gap:38px;
+  margin-top:56px;
+  flex-wrap:wrap;
+}
+.stat-num{
+  font-family:var(--font-mono);
+  font-size:24px;
+  font-weight:500;
+  color:var(--text-1);
+}
+.stat-label{
+  font-size:12.5px;
+  color:var(--text-3);
+  margin-top:4px;
+}
+
+/* --- strata visual --- */
+.hero-visual{
+  position:relative;
+  height:480px;
+  perspective:1400px;
+}
+.strata-stack{
+  position:relative;
+  width:100%;height:100%;
+  transform-style:preserve-3d;
+  transition:transform .25s var(--ease);
+}
+.strata-card{
+  position:absolute;
+  width:280px;
+  border-radius:20px;
+  padding:22px;
+  background:linear-gradient(160deg, rgba(255,255,255,.05), rgba(255,255,255,.015));
+  border:1px solid rgba(255,255,255,.08);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  box-shadow:0 30px 60px -20px rgba(0,0,0,.7);
+  display:flex;flex-direction:column;gap:14px;
+}
+.strata-card .icon-badge{
+  width:38px;height:38px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--grad-strata);
+}
+.strata-card .icon-badge svg{width:19px;height:19px;color:#06121a;}
+.strata-card h4{font-family:var(--font-display);font-size:16px;font-weight:600;}
+.strata-card p{font-size:12.5px;color:var(--text-2);}
+.strata-card .tag{
+  font-family:var(--font-mono);
+  font-size:10.5px;
+  color:var(--teal);
+  letter-spacing:.05em;
+}
+.card-a{top:0;left:10%;transform:translateZ(60px) rotate(-6deg);z-index:3;}
+.card-b{top:90px;left:38%;transform:translateZ(20px) rotate(3deg);z-index:2;}
+.card-c{top:230px;left:6%;transform:translateZ(-10px) rotate(-2deg);z-index:1;opacity:.85;}
+.horizon-line{
+  position:absolute;
+  left:-10%;right:-10%;
+  top:54%;
+  height:140px;
+  background:var(--grad-strata);
+  opacity:.16;
+  filter:blur(50px);
+  transform:rotate(-3deg);
+  pointer-events:none;
+}
+.live-chip{
+  position:absolute;
+  bottom:14px;right:0;
+  display:flex;align-items:center;gap:9px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:999px;
+  padding:9px 16px 9px 12px;
+  font-family:var(--font-mono);
+  font-size:11.5px;
+  color:var(--text-2);
+  box-shadow:var(--shadow-card);
+  z-index:4;
+}
+.pulse-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--teal);
+  box-shadow:0 0 0 0 rgba(43,217,185,.6);
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(43,217,185,.55);}
+  70%{box-shadow:0 0 0 9px rgba(43,217,185,0);}
+  100%{box-shadow:0 0 0 0 rgba(43,217,185,0);}
+}
+
+/* ============ TRUST STRIP ============ */
+.trust-strip{
+  border-top:1px solid var(--border-soft);
+  border-bottom:1px solid var(--border-soft);
+  background:var(--bg-soft);
+  padding:30px 0;
+}
+.trust-row{
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:24px;
+}
+.trust-item{
+  display:flex;align-items:center;gap:11px;
+  color:var(--text-2);
+  font-size:13.5px;
+}
+.trust-item svg{width:20px;height:20px;color:var(--teal);flex-shrink:0;}
+.trust-item b{color:var(--text-1);font-weight:600;}
+
+/* ============ PRODUCT GRID ============ */
+.products{padding:128px 0 60px;}
+.product-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+}
+.product-card{
+  background:var(--surface);
+  border:1px solid var(--border-soft);
+  border-radius:var(--radius-m);
+  overflow:hidden;
+  transition:transform .45s var(--ease),border-color .45s var(--ease),box-shadow .45s var(--ease);
+  position:relative;
+}
+.product-card:hover{
+  transform:translateY(-6px);
+  border-color:#373a47;
+  box-shadow:var(--shadow-card);
+}
+.product-thumb{
+  height:170px;
+  position:relative;
+  display:flex;align-items:flex-start;justify-content:space-between;
+  padding:16px;
+  overflow:hidden;
+}
+.product-thumb::after{
+  content:'';
+  position:absolute;inset:0;
+  background-image:repeating-linear-gradient(45deg, rgba(255,255,255,.05) 0 1px, transparent 1px 26px);
+  opacity:.5;
+}
+.thumb-glyph{
+  position:absolute;
+  right:-10px;bottom:-26px;
+  font-family:var(--font-display);
+  font-size:130px;
+  font-weight:700;
+  color:rgba(255,255,255,.07);
+  z-index:0;
+}
+.file-tag{
+  font-family:var(--font-mono);
+  font-size:10.5px;
+  letter-spacing:.04em;
+  background:rgba(8,9,13,.4);
+  border:1px solid rgba(255,255,255,.14);
+  color:#fff;
+  padding:5px 9px;
+  border-radius:6px;
+  z-index:1;
+  backdrop-filter:blur(6px);
+}
+.wishlist{
+  width:30px;height:30px;border-radius:50%;
+  background:rgba(8,9,13,.4);
+  border:1px solid rgba(255,255,255,.14);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
+  z-index:1;
+  transition:background .3s;
+}
+.wishlist svg{width:14px;height:14px;}
+.wishlist:hover{background:rgba(8,9,13,.7);}
+
+.grad-1{background:linear-gradient(135deg,#3a2e6e,#1f3a5c);}
+.grad-2{background:linear-gradient(135deg,#1f4a4a,#13343f);}
+.grad-3{background:linear-gradient(135deg,#2f3a6e,#19243f);}
+.grad-4{background:linear-gradient(135deg,#5c3a1f,#3a2e1a);}
+.grad-5{background:linear-gradient(135deg,#1f5c4f,#143a36);}
+.grad-6{background:linear-gradient(135deg,#3a1f5c,#241a3a);}
+
+.product-body{padding:18px 18px 20px;}
+.product-meta{
+  display:flex;align-items:center;gap:8px;
+  margin-bottom:10px;
+}
+.avatar{
+  width:20px;height:20px;border-radius:50%;
+  background:var(--grad-strata);
+  font-size:9px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  color:#06121a;
+  font-family:var(--font-mono);
+}
+.creator-name{font-size:12.5px;color:var(--text-3);}
+.product-card h3{
+  font-size:16.5px;
+  font-weight:600;
+  margin-bottom:8px;
+  line-height:1.3;
+}
+.rating{
+  display:flex;align-items:center;gap:5px;
+  font-size:12.5px;
+  color:var(--text-2);
+  margin-bottom:16px;
+}
+.rating svg{width:13px;height:13px;color:var(--amber);}
+.product-footer{
+  display:flex;align-items:center;justify-content:space-between;
+}
+.price{
+  font-family:var(--font-mono);
+  font-size:18px;
+  font-weight:500;
+}
+.price span{color:var(--text-3);font-size:12px;text-decoration:line-through;margin-right:6px;}
+
+.products-cta{
+  display:flex;justify-content:center;
+  margin-top:52px;
+}
+
+/* ============ CATEGORIES ============ */
+.categories{padding:80px 0;}
+.cat-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+.cat-tile{
+  background:var(--surface);
+  border:1px solid var(--border-soft);
+  border-radius:var(--radius-m);
+  padding:28px;
+  display:flex;flex-direction:column;gap:18px;
+  transition:transform .4s var(--ease),border-color .4s var(--ease);
+  position:relative;
+  overflow:hidden;
+}
+.cat-tile::before{
+  content:'';
+  position:absolute;inset:0;
+  background:var(--grad-strata);
+  opacity:0;
+  transition:opacity .4s var(--ease);
+  z-index:0;
+}
+.cat-tile:hover{transform:translateY(-5px);border-color:#373a47;}
+.cat-tile:hover::before{opacity:.05;}
+.cat-icon{
+  width:46px;height:46px;border-radius:12px;
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  z-index:1;
+}
+.cat-icon svg{width:21px;height:21px;color:var(--teal);}
+.cat-tile h3{font-size:18px;font-weight:600;z-index:1;}
+.cat-tile span{font-size:12.5px;color:var(--text-3);font-family:var(--font-mono);z-index:1;}
+
+/* ============ REVIEWS ============ */
+.reviews{padding:80px 0;}
+.review-track{
+  display:flex;gap:20px;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  padding-bottom:14px;
+  margin:0 -32px;
+  padding-left:32px;padding-right:32px;
+}
+.review-track::-webkit-scrollbar{height:5px;}
+.review-track::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px;}
+.review-card{
+  min-width:340px;
+  scroll-snap-align:start;
+  background:var(--surface);
+  border:1px solid var(--border-soft);
+  border-radius:var(--radius-m);
+  padding:26px;
+  display:flex;flex-direction:column;gap:18px;
+}
+.review-card .rating{margin:0;}
+.review-card p.quote{
+  font-size:14.5px;
+  color:var(--text-2);
+  line-height:1.65;
+}
+.reviewer{display:flex;align-items:center;gap:11px;}
+.reviewer .avatar{width:36px;height:36px;font-size:12px;}
+.reviewer-name{font-size:13.5px;font-weight:600;}
+.reviewer-role{font-size:12px;color:var(--text-3);}
+
+/* ============ NEWSLETTER ============ */
+.newsletter{padding:60px 0 100px;}
+.newsletter-card{
+  position:relative;
+  border-radius:var(--radius-l);
+  padding:64px 48px;
+  text-align:center;
+  background:var(--surface);
+  border:1px solid var(--border-soft);
+  overflow:hidden;
+}
+.newsletter-card::before{
+  content:'';
+  position:absolute;top:-60%;left:50%;
+  width:600px;height:300px;
+  transform:translateX(-50%);
+  background:radial-gradient(ellipse at center, rgba(43,217,185,.18), transparent 70%);
+  filter:blur(30px);
+}
+.newsletter-card h2{font-size:clamp(26px,3vw,34px);position:relative;}
+.newsletter-card p{color:var(--text-2);margin-top:14px;position:relative;font-size:15px;}
+.newsletter-form{
+  display:flex;gap:12px;
+  max-width:420px;margin:32px auto 0;
+  position:relative;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+.newsletter-form input{
+  flex:1;min-width:220px;
+  background:var(--bg-soft);
+  border:1px solid var(--border);
+  border-radius:999px;
+  padding:13px 20px;
+  font-size:14px;
+}
+.newsletter-form input::placeholder{color:var(--text-3);}
+.newsletter-note{
+  margin-top:16px;font-size:11.5px;color:var(--text-3);position:relative;
+}
+.newsletter-success{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  margin-top:32px;font-size:14.5px;color:var(--teal);
+}
+.newsletter-success svg{width:18px;height:18px;}
+
+/* ============ FAQ ============ */
+.faq{padding:60px 0 120px;}
+.faq-list{max-width:780px;margin:0 auto;}
+.faq-item{
+  border-bottom:1px solid var(--border-soft);
+}
+.faq-q{
+  width:100%;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:20px;
+  padding:24px 4px;
+  background:none;border:none;
+  text-align:left;
+  cursor:pointer;
+}
+.faq-q h3{font-size:16px;font-weight:600;font-family:var(--font-body);}
+.faq-q .icon{
+  width:26px;height:26px;border-radius:50%;
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  position:relative;
+  transition:transform .4s var(--ease),background .4s;
+}
+.faq-q .icon::before,.faq-q .icon::after{
+  content:'';position:absolute;
+  background:var(--text-2);
+  transition:transform .35s var(--ease);
+}
+.faq-q .icon::before{width:10px;height:1.4px;}
+.faq-q .icon::after{width:1.4px;height:10px;}
+.faq-item.open .faq-q .icon{background:var(--surface-2);border-color:#3a3d4a;}
+.faq-item.open .faq-q .icon::after{transform:scaleY(0);}
+.faq-answer-wrap{
+  display:grid;
+  grid-template-rows:0fr;
+  transition:grid-template-rows .45s var(--ease);
+}
+.faq-item.open .faq-answer-wrap{grid-template-rows:1fr;}
+.faq-answer-inner{overflow:hidden;}
+.faq-answer{
+  padding:0 4px 24px;
+  font-size:14.5px;
+  color:var(--text-2);
+  line-height:1.7;
+  max-width:640px;
+}
+
+/* ============ FOOTER ============ */
+footer{
+  border-top:1px solid var(--border-soft);
+  padding:72px 0 32px;
+  background:var(--bg-soft);
+}
+.footer-top{
+  display:grid;
+  grid-template-columns:1.4fr repeat(3,1fr);
+  gap:40px;
+  padding-bottom:56px;
+}
+.footer-brand p{
+  color:var(--text-3);
+  font-size:13.5px;
+  margin-top:14px;
+  max-width:280px;
+  line-height:1.6;
+}
+.footer-col h4{
+  font-size:12.5px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:var(--text-3);
+  margin-bottom:18px;
+}
+.footer-col a{
+  display:block;
+  font-size:14px;
+  color:var(--text-2);
+  margin-bottom:13px;
+  transition:color .3s;
+  width:fit-content;
+}
+.footer-col a:hover{color:var(--text-1);}
+.social-row{display:flex;gap:12px;margin-top:20px;}
+.social-row a{
+  width:34px;height:34px;border-radius:9px;
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+}
+.social-row a:hover{background:var(--surface-2);}
+.social-row svg{width:15px;height:15px;}
+.footer-bottom{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-top:28px;
+  border-top:1px solid var(--border-soft);
+  flex-wrap:wrap;gap:14px;
+  font-size:12.5px;
+  color:var(--text-3);
+}
+.locale-pill{
+  display:flex;align-items:center;gap:7px;
+  border:1px solid var(--border);
+  border-radius:999px;
+  padding:7px 14px;
+  font-family:var(--font-mono);
+  font-size:11.5px;
+}
+
+/* ============ SCROLL REVEAL ============ */
+.reveal{
+  opacity:0;
+  transform:translateY(26px);
+  transition:opacity .8s var(--ease),transform .8s var(--ease);
+}
+.reveal.in-view{opacity:1;transform:translateY(0);}
+.reveal-stagger > *{transition-delay:calc(var(--i) * 70ms);}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:1024px){
+  .hero-grid{grid-template-columns:1fr;}
+  .hero-visual{height:380px;margin-top:20px;}
+  .product-grid{grid-template-columns:repeat(2,1fr);}
+  .cat-grid{grid-template-columns:repeat(2,1fr);}
+  .footer-top{grid-template-columns:1fr 1fr;}
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+}
+@media (max-width:640px){
+  .wrap{padding:0 20px;}
+  .hero{padding:140px 0 80px;}
+  .product-grid{grid-template-columns:1fr;}
+  .cat-grid{grid-template-columns:1fr;}
+  .trust-row{justify-content:flex-start;}
+  .footer-top{grid-template-columns:1fr;gap:32px;padding-bottom:36px;}
+  .footer-bottom{flex-direction:column;align-items:flex-start;}
+  .section-head{flex-direction:column;align-items:flex-start;}
+  .strata-card{width:230px;}
+  .newsletter-card{padding:44px 24px;}
+  .nav-cta-group .btn-ghost{display:none;}
+}
+</style>
+</head>
+<body>
+
+<svg class="noise" aria-hidden="true">
+  <filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/></filter>
+  <rect width="100%" height="100%" filter="url(#n)"/>
+</svg>
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- ============ NAV ============ -->
+<header id="siteHeader">
+  <div class="wrap">
+    <nav>
+      <a href="#" class="logo"><span class="dot"></span>Stratum</a>
+      <div class="nav-links">
+        <a href="#store">Store</a>
+        <a href="#categories">Categories</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#blog">Blog</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div class="nav-right">
+        <div class="nav-cta-group">
+          <a href="#login" class="btn btn-ghost btn-sm">Sign in</a>
+          <a href="#signup" class="btn btn-primary btn-sm">Get started</a>
+        </div>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<div class="mobile-panel" id="mobilePanel">
+  <div class="mobile-panel-top">
+    <a href="#" class="logo"><span class="dot"></span>Stratum</a>
+    <button class="hamburger" id="closeMobileBtn" aria-label="Close menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <a href="#store">Store</a>
+  <a href="#categories">Categories</a>
+  <a href="#pricing">Pricing</a>
+  <a href="#blog">Blog</a>
+  <a href="#faq">FAQ</a>
+  <a href="#login">Sign in</a>
+  <a href="#signup" class="btn btn-primary">Get started</a>
+</div>
+
+<main>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="hero-bg-glow"></div>
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <div class="eyebrow">Digital goods, instantly delivered</div>
+        <h1>Premium digital products, <span class="gradient-text">stacked and ready to ship.</span></h1>
+        <p class="lead">Templates, courses, software and design files from creators who ship quality. Buy once, download forever — secure checkout and instant delivery, every time.</p>
+        <div class="hero-actions">
+          <a href="#store" class="btn btn-primary">
+            Browse the catalog
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="#sell" class="btn btn-ghost">Sell on Stratum</a>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="stat-num">14,200+</div>
+            <div class="stat-label">Products listed</div>
+          </div>
+          <div>
+            <div class="stat-num">92,000+</div>
+            <div class="stat-label">Happy customers</div>
+          </div>
+          <div>
+            <div class="stat-num">4.9 / 5</div>
+            <div class="stat-label">Average rating</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual" id="heroVisual">
+        <div class="horizon-line"></div>
+        <div class="strata-stack" id="strataStack">
+          <div class="strata-card card-a">
+            <div class="icon-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l9 4.5-9 4.5-9-4.5L12 3z"/><path d="M3 12l9 4.5 9-4.5M3 16.5l9 4.5 9-4.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h4>UI Template Pack</h4>
+            <p>48 responsive screens, dark + light</p>
+            <span class="tag">.FIGMA · 12.4 MB</span>
+          </div>
+          <div class="strata-card card-b">
+            <div class="icon-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l6 3.5-6 3.5v-7z" stroke-linejoin="round"/></svg>
+            </div>
+            <h4>Growth Marketing Course</h4>
+            <p>6 hr · 38 lessons · certificate</p>
+            <span class="tag">.MP4 · streaming</span>
+          </div>
+          <div class="strata-card card-c">
+            <div class="icon-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 17l-5-5 5-5M16 7l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h4>Automation Script Kit</h4>
+            <p>14 scripts · CLI + GUI</p>
+            <span class="tag">.ZIP · 3.1 MB</span>
+          </div>
+        </div>
+        <div class="live-chip"><span class="pulse-dot"></span>Instant delivery · live now</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TRUST STRIP ============ -->
+  <section class="trust-strip">
+    <div class="wrap trust-row">
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5l8-3z"/></svg>
+        <span><b>Secure checkout</b> · 256-bit encryption</span>
+      </div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span><b>Instant download</b> · seconds after purchase</span>
+      </div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6" stroke-linecap="round"/></svg>
+        <span><b>Verified creators</b> · manually reviewed</span>
+      </div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1018 0 9 9 0 00-18 0z"/><path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span><b>30-day guarantee</b> · no-questions refunds</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEATURED PRODUCTS ============ -->
+  <section class="products" id="store">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <div class="eyebrow">Featured this week</div>
+          <h2>Top-selling digital products</h2>
+        </div>
+        <p>A rotating shelf of the best-reviewed templates, courses and software, picked fresh every Monday.</p>
+      </div>
+
+      <div class="product-grid reveal-stagger">
+        <article class="product-card reveal" style="--i:0">
+          <div class="product-thumb grad-1">
+            <span class="thumb-glyph">N</span>
+            <span class="file-tag">.NOTION</span>
+            <span class="wishlist"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0112 6a5.5 5.5 0 019.5 6c-2.5 4.5-9.5 9-9.5 9z"/></svg></span>
+          </div>
+          <div class="product-body">
+            <div class="product-meta"><span class="avatar">MK</span><span class="creator-name">Maren Koll</span></div>
+            <h3>Notion OS — Life &amp; Work Template</h3>
+            <div class="rating">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .9-5 4.8 1.3 7-6.3-3.5L5.7 21l1.3-7-5-4.8 7-.9z"/></svg>
+              4.9 · 1,204 sales
+            </div>
+            <div class="product-footer">
+              <span class="price">$24</span>
+              <a href="#" class="btn btn-primary btn-sm">Buy now</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card reveal" style="--i:1">
+          <div class="product-thumb grad-2">
+            <span class="thumb-glyph">L</span>
+            <span class="file-tag">.CUBE</span>
+            <span class="wishlist"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0112 6a5.5 5.5 0 019.5 6c-2.5 4.5-9.5 9-9.5 9z"/></svg></span>
+          </div>
+          <div class="product-body">
+            <div class="product-meta"><span class="avatar">TR</span><span class="creator-name">Theo Rivas</span></div>
+            <h3>Cinematic LUT Pack Vol. 3</h3>
+            <div class="rating">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .9-5 4.8 1.3 7-6.3-3.5L5.7 21l1.3-7-5-4.8 7-.9z"/></svg>
+              4.8 · 860 sales
+            </div>
+            <div class="product-footer">
+              <span class="price"><span>$49</span>$39</span>
+              <a href="#" class="btn btn-primary btn-sm">Buy now</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card reveal" style="--i:2">
+          <div class="product-thumb grad-3">
+            <span class="thumb-glyph">F</span>
+            <span class="file-tag">.FIGMA</span>
+            <span class="wishlist"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0112 6a5.5 5.5 0 019.5 6c-2.5 4.5-9.5 9-9.5 9z"/></svg></span>
+          </div>
+          <div class="product-body">
+            <div class="product-meta"><span class="avatar">BS</span><span class="creator-name">Builds Studio</span></div>
+            <h3>React Dashboard UI Kit</h3>
+            <div class="rating">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .9-5 4.8 1.3 7-6.3-3.5L5.7 21l1.3-7-5-4.8 7-.9z"/></svg>
+              5.0 · 2,310 sales
+            </div>
+            <div class="product-footer">
+              <span class="price">$59</span>
+              <a href="#" class="btn btn-primary btn-sm">Buy now</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card reveal" style="--i:3">
+          <div class="product-thumb grad-4">
+            <span class="thumb-glyph">C</span>
+            <span class="file-tag">.MP4</span>
+            <span class="wishlist"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0112 6a5.5 5.5 0 019.5 6c-2.5 4.5-9.5 9-9.5 9z"/></svg></span>
+          </div>
+          <div class="product-body">
+            <div class="product-meta"><span class="avatar">IV</span><span class="creator-name">Ines Vasquez</span></div>
+            <h3>Complete Copywriting Masterclass</h3>
+            <div class="rating">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .9-5 4.8 1.3 7-6.3-3.5L5.7 21l1.3-7-5-4.8 7-.9z"/></svg>
+              4.9 · 640 sales
+            </div>
+            <div class="product-footer">
+              <span class="price">$89</span>
+              <a href="#" class="btn btn-primary btn-sm">Buy now</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card reveal" style="--i:4">
+          <div class="product-thumb grad-5">
+            <span class="thumb-glyph">P</span>
+            <span class="file-tag">.PPTX</span>
+            <span class="wishlist"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0112 6a5.5 5.5 0 019.5 6c-2.5 4.5-9.5 9-9.5 9z"/></svg></span>
+          </div>
+          <div class="product-body">
+            <div class="product-meta"><span class="avatar">LC</span><span class="creator-name">Lumen Co.</span></div>
+            <h3>Startup Pitch Deck Template</h3>
+            <div class="rating">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .9-5 4.8 1.3 7-6.3-3.5L5.7 21l1.3-7-5-4.8 7-.9z"/></svg>
+              4.7 · 1,510 sales
+            </div>
+            <div class="product-footer">
+              <span class="price">$19</span>
+              <a href="#" class="btn btn-primary btn-sm">Buy now</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card reveal" style="--i:5">
+          <div class="product-thumb grad-6">
+            <span class="thumb-glyph">A</span>
+            <span class="file-tag">.ZIP</span>
+            <span class="wishlist"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0112 6a5.5 5.5 0 019.5 6c-2.5 4.5-9.5 9-9.5 9z"/></svg></span>
+          </div>
+          <div class="product-body">
+            <div class="product-meta"><span class="avatar">KD</span><span class="creator-name">Kade Dunn</span></div>
+            <h3>Automation Scripts Bundle</h3>
+            <div class="rating">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .9-5 4.8 1.3 7-6.3-3.5L5.7 21l1.3-7-5-4.8 7-.9z"/></svg>
+              4.8 · 980 sales
+            </div>
+            <div class="product-footer">
+              <span class="price">$45</span>
+              <a href="#" class="btn btn-primary btn-sm">Buy now</a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="products-cta reveal">
+        <a href="#store" class="btn btn-ghost">View full catalog</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CATEGORIES ============ -->
+  <section class="categories" id="categories">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <div class="eyebrow">Browse by category</div>
+          <h2>Six ways to find what you need</h2>
+        </div>
+        <p>Every listing is sorted, tagged and searchable the moment it's reviewed and approved.</p>
+      </div>
+
+      <div class="cat-grid reveal-stagger">
+        <div class="cat-tile reveal" style="--i:0">
+          <div class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3l9 4.5-9 4.5-9-4.5L12 3z"/><path d="M3 12l9 4.5 9-4.5M3 16.5l9 4.5 9-4.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3>Templates</h3>
+          <span>3,840 listings</span>
+        </div>
+        <div class="cat-tile reveal" style="--i:1">
+          <div class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l6 3.5-6 3.5v-7z" stroke-linejoin="round"/></svg></div>
+          <h3>Online courses</h3>
+          <span>1,260 listings</span>
+        </div>
+        <div class="cat-tile reveal" style="--i:2">
+          <div class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M8 17l-5-5 5-5M16 7l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3>Software &amp; scripts</h3>
+          <span>2,110 listings</span>
+        </div>
+        <div class="cat-tile reveal" style="--i:3">
+          <div class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="7" cy="7" r="3"/><circle cx="17" cy="17" r="3"/><path d="M9.5 9.5l5 5" stroke-linecap="round"/></svg></div>
+          <h3>Design assets</h3>
+          <span>4,920 listings</span>
+        </div>
+        <div class="cat-tile reveal" style="--i:4">
+          <div class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 4h10l6 6v10H4z"/><path d="M14 4v6h6M8 13h8M8 17h5" stroke-linecap="round"/></svg></div>
+          <h3>Documents &amp; ebooks</h3>
+          <span>1,580 listings</span>
+        </div>
+        <div class="cat-tile reveal" style="--i:5">
+          <div class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M7 18a4.5 4.5 0 01-.5-8.97A6 6 0 0118 9.5 4 4 0 0117.5 18H7z"/><path d="M12 12v6m0 0l-2.5-2.5M12 18l2.5-2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3>Drive resource packs</h3>
+          <span>590 listings</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ REVIEWS ============ -->
+  <section class="reviews">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <div class="eyebrow">Customer reviews</div>
+          <h2>Trusted by buyers and creators alike</h2>
+        </div>
+        <p>92,000+ purchases. Here's what a few of them had to say.</p>
+      </div>
+    </div>
+    <div class="review-track reveal">
+      <div class="review-card">
+        <div class="rating"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .9-5 4.8 1.3 7-6.3-3.5L5.7 21l1.3-7-5-4.8 7-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .9-5 4.8 1.3 7-6.3-3.5L5.7 21l1.3-7-5-4.8 7-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .9-5 4.8 1.3 7-6.3-3.5L5.7 21l1.3-7-5-4.8 7-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .9-5 4.8 1.3 7-6.3-3.5L5.7 21l1.3-7-5-4.8 7-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .9-5 4.8 1.3 7-6.3-3.5L5.7 21l1.3-7-5-4.8 7-.9z"/></svg></div>
+        <p class="quote">Bought a UI kit on a Friday night and had it open in Figma two minutes later. The license terms were clear and the file organization was better than kits I've paid three times as much for.</p>
+        <div class="reviewer"><span class="avatar">RJ</span><div><div class="reviewer-name">Riya Joshi</div><div class="reviewer-role">Freelance product designer</div></div></div>
+      </div>
+      <div class="review-card">
+        <div class="rating"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .9-5 4.8 1.3 7-6.3-3.5L5.7 21l1.3-7-5-4.8 7-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .9-5 4.8 1.3 7-6.3-3.5L5.7 21l1.3-7-5-4.8 7-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .9-5 4.8 1.3 7-6.3-3.5L5.7 21l1.3-7-5-4.8 7-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .9-5 4.8 1.3 7-6.3-3.5L5.7 21l1.3-7-5-4.8 7-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .9-5 4.8 1.3 7-6.3-3.5L5.7 21l1.3-7-5-4.8 7-.9z"/></svg></div>
+        <p class="quote">I sell my own course material here and the payout dashboard alone is worth it — clear sales breakdowns, coupon tracking, and payouts land on schedule every single month.</p>
+        <div class="reviewer"><span class="avatar">DO</span><div><div class="reviewer-name">Daniel Osei</div><div class="reviewer-role">Course creator</div></div></div>
+      </div>
+      <div class="review-card">
+        <div class="rating"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .9-5 4.8 1.3 7-6.3-3.5L5.7 21l1.3-7-5-4.8 7-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .9-5 4.8 1.3 7-6.3-3.5L5.7 21l1.3-7-5-4.8 7-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .9-5 4.8 1.3 7-6.3-3.5L5.7 21l1.3-7-5-4.8 7-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .9-5 4.8 1.3 7-6.3-3.5L5.7 21l1.3-7-5-4.8 7-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .9-5 4.8 1.3 7-6.3-3.5L5.7 21l1.3-7-5-4.8 7-.9z"/></svg></div>
+        <p class="quote">We outfitted our entire onboarding flow with templates from here. Procurement loved that invoices and licenses were generated automatically for every seat we bought.</p>
+        <div class="reviewer"><span class="avatar">SF</span><div><div class="reviewer-name">Sara Fontaine</div><div class="reviewer-role">Startup founder</div></div></div>
+      </div>
+      <div class="review-card">
+        <div class="rating"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .9-5 4.8 1.3 7-6.3-3.5L5.7 21l1.3-7-5-4.8 7-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .9-5 4.8 1.3 7-6.3-3.5L5.7 21l1.3-7-5-4.8 7-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .9-5 4.8 1.3 7-6.3-3.5L5.7 21l1.3-7-5-4.8 7-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .9-5 4.8 1.3 7-6.3-3.5L5.7 21l1.3-7-5-4.8 7-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .9-5 4.8 1.3 7-6.3-3.5L5.7 21l1.3-7-5-4.8 7-.9z"/></svg></div>
+        <p class="quote">Refunded a mismatched template without any back-and-forth. That kind of policy is rare for digital goods, and it's the reason I keep coming back to shop here first.</p>
+        <div class="reviewer"><span class="avatar">ML</span><div><div class="reviewer-name">Marcus Lin</div><div class="reviewer-role">Marketing lead</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ NEWSLETTER ============ -->
+  <section class="newsletter">
+    <div class="wrap">
+      <div class="newsletter-card reveal">
+        <div class="eyebrow" style="justify-content:center;">Stay in the loop</div>
+        <h2>Get new drops before anyone else.</h2>
+        <p>One email a week. New products, seller spotlights, and the occasional discount code.</p>
+        <form class="newsletter-form" id="newsletterForm">
+          <input type="email" required placeholder="you@email.com" aria-label="Email address">
+          <button type="submit" class="btn btn-primary">Subscribe</button>
+        </form>
+        <div class="newsletter-note">No spam. Unsubscribe anytime.</div>
+        <div class="newsletter-success" id="newsletterSuccess" style="display:none;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1018 0 9 9 0 00-18 0z"/><path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          You're on the list. Watch your inbox.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="faq" id="faq">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <div class="eyebrow">Questions</div>
+          <h2>Frequently asked</h2>
+        </div>
+        <p>Can't find your answer here? Our support team replies within a few hours.</p>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item open">
+          <button class="faq-q"><h3>How does delivery actually work?</h3><span class="icon"></span></button>
+          <div class="faq-answer-wrap"><div class="faq-answer-inner"><p class="faq-answer">The moment your payment is confirmed, a secure, time-limited download link is generated and emailed to you. The same link also appears instantly in your dashboard's download library, so you can grab the files from any device.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q"><h3>What payment methods do you accept?</h3><span class="icon"></span></button>
+          <div class="faq-answer-wrap"><div class="faq-answer-inner"><p class="faq-answer">We process payments through Stripe, so all major cards and digital wallets are supported, along with local payment methods depending on your region. Every transaction is encrypted end to end.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q"><h3>Can I sell my own products on Stratum?</h3><span class="icon"></span></button>
+          <div class="faq-answer-wrap"><div class="faq-answer-inner"><p class="faq-answer">Yes. Apply as a seller, upload your files, set your price, and our review team typically approves new listings within 24 hours. You keep a transparent share of every sale, with payouts on a fixed monthly schedule.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q"><h3>What if a product isn't what I expected?</h3><span class="icon"></span></button>
+          <div class="faq-answer-wrap"><div class="faq-answer-inner"><p class="faq-answer">Every purchase is covered by a 30-day refund policy. If a file is broken, misrepresented, or simply not a fit, contact support and we'll resolve it without back-and-forth.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q"><h3>How do you stop files from being shared illegally?</h3><span class="icon"></span></button>
+          <div class="faq-answer-wrap"><div class="faq-answer-inner"><p class="faq-answer">Download links are unique to your account, watermarked where applicable, and expire automatically after a limited window or number of uses, which keeps casual link-sharing from spreading purchased files.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q"><h3>Do you support international customers?</h3><span class="icon"></span></button>
+          <div class="faq-answer-wrap"><div class="faq-answer-inner"><p class="faq-answer">Yes, Stratum serves customers worldwide with multi-currency pricing at checkout, and we're actively rolling out additional language options across the storefront.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#" class="logo"><span class="dot"></span>Stratum</a>
+        <p>A premium marketplace for templates, courses, software and design assets — built for creators who care about craft.</p>
+        <div class="social-row">
+          <a href="#" aria-label="X / Twitter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 3H22l-7.6 8.7L23 21h-6.9l-5.4-6.5L4.6 21H1.5l8.2-9.4L1 3h7.1l4.9 5.9L18.9 3z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5.001A2.5 2.5 0 014.98 3.5zM3 9h4v12H3zM9.5 9h3.8v1.7h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.3-.02-2.96-1.8-2.96-1.8 0-2.08 1.4-2.08 2.86V21h-4z"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3V9z" fill="currentColor" stroke="none"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Marketplace</h4>
+        <a href="#store">Browse store</a>
+        <a href="#categories">Categories</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#sell">Become a seller</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#about">About us</a>
+        <a href="#blog">Blog</a>
+        <a href="#careers">Careers</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <a href="#faq">FAQ</a>
+        <a href="#help">Help center</a>
+        <a href="#terms">Terms of service</a>
+        <a href="#privacy">Privacy policy</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Stratum Inc. All rights reserved.</span>
+      <div class="locale-pill">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18 14 14 0 010-18z"/></svg>
+        EN · USD
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ---- Header scroll state + progress bar ----
+const header = document.getElementById('siteHeader');
+const progressBar = document.getElementById('progressBar');
+function onScroll(){
+  header.classList.toggle('scrolled', window.scrollY > 10);
+  const h = document.documentElement;
+  const scrollPct = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+  progressBar.style.width = scrollPct + '%';
+}
+document.addEventListener('scroll', onScroll, {passive:true});
+onScroll();
+
+// ---- Mobile menu ----
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const closeMobileBtn = document.getElementById('closeMobileBtn');
+const mobilePanel = document.getElementById('mobilePanel');
+hamburgerBtn.addEventListener('click', () => mobilePanel.classList.add('open'));
+closeMobileBtn.addEventListener('click', () => mobilePanel.classList.remove('open'));
+mobilePanel.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobilePanel.classList.remove('open')));
+
+// ---- Hero parallax tilt (pointer devices only) ----
+const heroVisual = document.getElementById('heroVisual');
+const strataStack = document.getElementById('strataStack');
+if (window.matchMedia('(hover: hover) and (pointer: fine)').matches && heroVisual) {
+  heroVisual.addEventListener('mousemove', (e) => {
+    const rect = heroVisual.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    strataStack.style.transform = `rotateY(${x * 10}deg) rotateX(${-y * 10}deg)`;
+  });
+  heroVisual.addEventListener('mouseleave', () => {
+    strataStack.style.transform = 'rotateY(0deg) rotateX(0deg)';
+  });
+}
+
+// ---- Scroll reveal ----
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in-view');
+      io.unobserve(entry.target);
+    }
+  });
+}, {threshold:0.15});
+revealEls.forEach(el => io.observe(el));
+
+// ---- FAQ accordion ----
+document.querySelectorAll('.faq-item').forEach(item => {
+  item.querySelector('.faq-q').addEventListener('click', () => {
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  });
+});
+
+// ---- Newsletter (front-end only — wire to real ESP API on backend) ----
+const newsletterForm = document.getElementById('newsletterForm');
+newsletterForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  newsletterForm.style.display = 'none';
+  document.getElementById('newsletterSuccess').style.display = 'flex';
+});
+</script>
+
+</body>
+</html>
